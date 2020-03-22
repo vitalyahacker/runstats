@@ -2,7 +2,7 @@ package com.vitali.runstats.controller;
 
 import com.vitali.runstats.controller.exception.RunstatsException;
 import com.vitali.runstats.dto.RunningStatsDto;
-import com.vitali.runstats.service.api.RunningStatsService;
+import com.vitali.runstats.service.report.RunningStatsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

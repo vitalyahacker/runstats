@@ -16,22 +16,6 @@ public class RunningReportDto {
 
     private Long totalDistanceInMeters;
 
-    public RunningReportDto(
-            Long numberOfWeek,
-            LocalDate weekStart,
-            LocalDate weekEnd,
-            Double averageSpeedInMeterPerSecond,
-            Double averageTimeInSeconds,
-            Long totalDistanceInMeters
-    ) {
-        this.numberOfWeek = numberOfWeek;
-        this.weekStart = weekStart;
-        this.weekEnd = weekEnd;
-        this.averageSpeedInMeterPerSecond = averageSpeedInMeterPerSecond;
-        this.averageTimeInSeconds = averageTimeInSeconds;
-        this.totalDistanceInMeters = totalDistanceInMeters;
-    }
-
     public RunningReportDto() {
     }
 
@@ -39,47 +23,53 @@ public class RunningReportDto {
         return numberOfWeek;
     }
 
-    public void setNumberOfWeek(Long numberOfWeek) {
+    public RunningReportDto setNumberOfWeek(Long numberOfWeek) {
         this.numberOfWeek = numberOfWeek;
+        return this;
     }
 
     public LocalDate getWeekStart() {
         return weekStart;
     }
 
-    public void setWeekStart(LocalDate weekStart) {
+    public RunningReportDto setWeekStart(LocalDate weekStart) {
         this.weekStart = weekStart;
+        return this;
     }
 
     public LocalDate getWeekEnd() {
         return weekEnd;
     }
 
-    public void setWeekEnd(LocalDate weekEnd) {
+    public RunningReportDto setWeekEnd(LocalDate weekEnd) {
         this.weekEnd = weekEnd;
+        return this;
     }
 
     public Double getAverageSpeedInMeterPerSecond() {
         return averageSpeedInMeterPerSecond;
     }
 
-    public void setAverageSpeedInMeterPerSecond(Double averageSpeedInMeterPerSecond) {
+    public RunningReportDto setAverageSpeedInMeterPerSecond(Double averageSpeedInMeterPerSecond) {
         this.averageSpeedInMeterPerSecond = averageSpeedInMeterPerSecond;
+        return this;
     }
 
     public Double getAverageTimeInSeconds() {
         return averageTimeInSeconds;
     }
 
-    public void setAverageTimeInSeconds(Double averageTimeInSeconds) {
+    public RunningReportDto setAverageTimeInSeconds(Double averageTimeInSeconds) {
         this.averageTimeInSeconds = averageTimeInSeconds;
+        return this;
     }
 
     public Long getTotalDistanceInMeters() {
         return totalDistanceInMeters;
     }
 
-    public void setTotalDistanceInMeters(Long totalDistanceInMeters) {
+    public RunningReportDto setTotalDistanceInMeters(Long totalDistanceInMeters) {
         this.totalDistanceInMeters = totalDistanceInMeters;
+        return this;
     }
 }

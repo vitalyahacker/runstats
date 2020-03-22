@@ -1,9 +1,8 @@
-package com.vitali.runstats.service.impl;
+package com.vitali.runstats.service.report;
 
 import com.vitali.runstats.dto.RunningStatsDto;
 import com.vitali.runstats.entity.RunningStats;
 import com.vitali.runstats.repo.RunningStatsRepo;
-import com.vitali.runstats.service.api.RunningStatsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

@@ -4,11 +4,14 @@ import com.vitali.runstats.dto.RunningReportDto;
 import com.vitali.runstats.entity.RunningStats;
 import com.vitali.runstats.entity.User;
 import com.vitali.runstats.repo.RunningStatsRepo;
+import com.vitali.runstats.service.report.DefaultRunningReportService;
+import com.vitali.runstats.service.report.aggregator.DefaultRunningReportAggregator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
@@ -33,6 +36,9 @@ public class DefaultRunningReportServiceTest {
     @Mock
     private RunningStatsRepo runningStatsRepo;
 
+    @Mock
+    private DefaultRunningReportAggregator runningReportAggregator;
+
     @InjectMocks
     private DefaultRunningReportService runningReportService;
 
@@ -51,6 +57,15 @@ public class DefaultRunningReportServiceTest {
                 .thenReturn(Arrays.asList(firstRunningStats, secondRunningStats));
         when(runningStatsRepo.findByUserIdAndDateBetween(USER_ID, FIRST_DATE.plusWeeks(1), FIRST_DATE.plusWeeks(2)))
                 .thenReturn(Arrays.asList(thirdRunningStats, fourthRunningStats));
+
+        when(
+                runningReportAggregator.aggregateReportForWeek(
+                        Mockito.anyList(),
+                        Mockito.anyLong(),
+                        Mockito.any(LocalDate.class),
+                        Mockito.any(LocalDate.class)
+                )
+        ).thenCallRealMethod();
     }
 
     @Test
@@ -68,25 +83,25 @@ public class DefaultRunningReportServiceTest {
         assertEquals(firstWeekReport.getWeekStart(), FIRST_DATE);
         assertEquals(firstWeekReport.getWeekEnd(), FIRST_DATE.plusWeeks(1));
         assertEquals(firstWeekReport.getTotalDistanceInMeters().longValue(),
-                firstRunningStats.getDistance() + secondRunningStats.getDistance().longValue());
-        assertEquals(firstWeekReport.getAverageSpeedInMeterPerSecond().doubleValue(),
+                firstRunningStats.getDistance() + secondRunningStats.getDistance());
+        assertEquals(firstWeekReport.getAverageSpeedInMeterPerSecond(),
                 calculateAverageSpeed(firstRunningStats, secondRunningStats), 0.1);
-        assertEquals(firstWeekReport.getAverageTimeInSeconds().doubleValue(),
-                (firstRunningStats.getTime() + secondRunningStats.getTime())/2, 0.1);
+        assertEquals(firstWeekReport.getAverageTimeInSeconds(),
+                (firstRunningStats.getTime() + secondRunningStats.getTime()) / 2, 0.1);
 
         RunningReportDto secondWeekReport = reports.get(1);
         assertEquals(secondWeekReport.getNumberOfWeek().longValue(), 2L);
         assertEquals(secondWeekReport.getWeekStart(), FIRST_DATE.plusWeeks(1));
         assertEquals(secondWeekReport.getWeekEnd(), FIRST_DATE.plusWeeks(2));
         assertEquals(secondWeekReport.getTotalDistanceInMeters().longValue(),
-                thirdRunningStats.getDistance() + fourthRunningStats.getDistance().longValue());
-        assertEquals(secondWeekReport.getAverageSpeedInMeterPerSecond().doubleValue(),
+                thirdRunningStats.getDistance() + fourthRunningStats.getDistance());
+        assertEquals(secondWeekReport.getAverageSpeedInMeterPerSecond(),
                 calculateAverageSpeed(thirdRunningStats, fourthRunningStats), 0.1);
-        assertEquals(secondWeekReport.getAverageTimeInSeconds().doubleValue(),
+        assertEquals(secondWeekReport.getAverageTimeInSeconds(),
                 (thirdRunningStats.getTime() + fourthRunningStats.getTime()) / 2, 0.1);
     }
 
     private double calculateAverageSpeed(RunningStats rs1, RunningStats rs2) {
-        return (rs1.getDistance() + rs2.getDistance()) / (rs1.getTime() + rs2.getTime());
+        return (rs1.getDistance() / (rs1.getTime()) + (rs2.getDistance() / rs2.getTime()));
     }
 }

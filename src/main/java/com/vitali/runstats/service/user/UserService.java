@@ -1,4 +1,4 @@
-package com.vitali.runstats.service.api;
+package com.vitali.runstats.service.user;
 
 import com.vitali.runstats.dto.UserDto;
 

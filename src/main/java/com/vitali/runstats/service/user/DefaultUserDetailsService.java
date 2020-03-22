@@ -1,9 +1,8 @@
-package com.vitali.runstats.service.impl;
+package com.vitali.runstats.service.user;
 
 import com.vitali.runstats.dto.UserDto;
 import com.vitali.runstats.entity.User;
 import com.vitali.runstats.repo.UserRepo;
-import com.vitali.runstats.service.api.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

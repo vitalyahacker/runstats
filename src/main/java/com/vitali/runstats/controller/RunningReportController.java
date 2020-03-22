@@ -1,7 +1,7 @@
 package com.vitali.runstats.controller;
 
 import com.vitali.runstats.dto.RunningReportDto;
-import com.vitali.runstats.service.api.RunningReportService;
+import com.vitali.runstats.service.report.RunningReportService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
